@@ -1,0 +1,15 @@
+######################
+# Eclipse
+######################
+.project
+.metadata
+tmp/
+tmp/**/*
+.classpath
+.settings/
+
+######################
+# Maven
+######################
+/log/
+/target/
