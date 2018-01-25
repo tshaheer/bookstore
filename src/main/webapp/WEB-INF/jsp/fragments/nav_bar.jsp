@@ -18,7 +18,7 @@
 		    <div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="nav navbar-nav">
 					<li class="active"><a
-						href="FrontControllerServlet?paramActionCommand=Dashboard">Home</a></li>
+						href="home.do?action=NewArrival">Home</a></li>
 					<li><a href="#">Books</a></li>
 					<li class="dropdown"><a data-toggle="dropdown"
 						class="dropdown-toggle" href="#">Category <b class="caret"></b></a>
@@ -39,7 +39,7 @@
 							<li><a href="#">Sign in</a></li>
 						</ul></li>
                   <li>
-                  	<a href="#"> <span class="glyphicon glyphicon-shopping-cart fa-lg"></span><span>5</span></a>
+                  	<a href="#"> <span class="glyphicon glyphicon-shopping-cart fa-lg"></span><span>0</span></a>
 				  </li>
                </ul>
 		    </div>
