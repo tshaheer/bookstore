@@ -3,6 +3,7 @@ package com.bookstore.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -13,13 +14,17 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletContext;
 
+import org.apache.log4j.Logger;
+
 /**
  * Utility class responsible for sending emails to customers using the JavaMail
  * API via Gmail SMPT Server.
  * 
  * @author Shaheer
  */
-public class MailUtil {
+public final class MailUtil {
+	
+	private static final Logger logger = Logger.getLogger(MailUtil.class);
 
 	// You have to change these accordingly to make email work. You will also
 	// most likely have to allow less secure apps to access your gmail for this
@@ -44,7 +49,7 @@ public class MailUtil {
 		try (InputStream in = sc.getResourceAsStream(path)) {
 			props.load(in);
 		} catch (IOException e) {
-			System.err.println("Failed to load JavaMail properties");
+			logger.error("Failed to load JavaMail properties");
 		}
 
 		Session session = Session.getInstance(props, new Authenticator() {
@@ -65,8 +70,9 @@ public class MailUtil {
 
 			Transport.send(message);
 		} catch (MessagingException e) {
-			System.err.println("Failed to send the order confirmation email:\n " + e);
+			logger.error("Failed to send the order confirmation email:\n " + e);
 		}
 	}
 
+	private MailUtil() {}
 }

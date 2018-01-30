@@ -5,7 +5,7 @@ package com.bookstore.util;
  * 
  * @author Shaheer
  */
-public interface Constants {
+public final class Constants {
 	public static final String BOOKSTORE_DATASOURCE = "jdbc/bsDataSource";
 	public static final String CONTENT_TYPE = "text/html;charset=utf-8";
     public static final String ACTION_PARAM = "action";
@@ -13,5 +13,9 @@ public interface Constants {
 	public static final String COMMAND_BASE_PACKAGE = "com.bookstore.command.";
 	public static final String COMMAND = "Command";
 	public static final String DATE_FORMAT_FULL = "dd-MM-yyyy HH:mm:ss";
+	public static final String DEFAULT_IMAGEURL = "default_book.jpg";
+	
+	private Constants() {
+	}
 	
 }

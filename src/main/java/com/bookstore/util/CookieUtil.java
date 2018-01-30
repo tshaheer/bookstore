@@ -7,7 +7,7 @@ import javax.servlet.http.Cookie;
  * 
  * @author Shaheer
  */
-public class CookieUtil {
+public final class CookieUtil {
 
    /**
     * Retrieves cookie value based on its name from the provided list
@@ -29,6 +29,9 @@ public class CookieUtil {
       }
 
       return result;
+   }
+   
+   private CookieUtil() {
    }
 
 }

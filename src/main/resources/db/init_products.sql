@@ -2,13 +2,15 @@
 
 drop table if exists PRODUCT;
 create table PRODUCT (
-       ISBN char(20) not null,
+	   ID BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+       ISBN char(36) not null,
        TITLE varchar(128) not null,
        PRICE float not null,
        PUB_DATE date not null,
        DESCRIPTION text,
 	   IMAGE_URL varchar(255) not null,
-       primary key(ISBN));
+       primary key(ID),
+	   UNIQUE (ISBN));
 
 drop table if exists AUTHOR;
 create table AUTHOR (

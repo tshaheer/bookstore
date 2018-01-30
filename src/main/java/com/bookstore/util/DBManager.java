@@ -12,6 +12,8 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
+import com.bookstore.exception.DataAccessConfigurationException;
+
 /**
  * This class can be used to get an instance of the JNDI Datasource, which
  * enables retrieving data using JDBC.
@@ -31,10 +33,10 @@ public class DBManager {
 		try {
 			if (connection == null || connection.isClosed()) {
 				connection = dataSource.getConnection();
-				connection.setAutoCommit(false);
 			}
 		} catch (SQLException sqle) {
 			logger.error(sqle.getMessage());
+			throw new DataAccessConfigurationException("Unable to connect to the database ", sqle);
 		}
 		return connection;
 	}
@@ -45,10 +47,12 @@ public class DBManager {
 			Context envContext = (Context) initialContext.lookup("java:/comp/env");
 			dataSource = (DataSource) envContext.lookup(Constants.BOOKSTORE_DATASOURCE);
 		} catch (NamingException ne) {
-			logger.error("Failed to look up data source." + ne.getMessage());
+			logger.error("Failed to look up data source. " + ne.getMessage());
+			throw new DataAccessConfigurationException("DataSource '" + Constants.BOOKSTORE_DATASOURCE + "' is missing in JNDI.", ne);
 		}
 	}
 
+	// Closes the database connection.
 	public static void releaseDBConnection() {
 		if (connection != null) {
 			try {
@@ -59,6 +63,7 @@ public class DBManager {
 		}
 	}
 
+	// Closes the result set and statement.
 	public static void closeDBResouces(Statement statement, ResultSet resultSet) {
 		try {
 			if (resultSet != null) {

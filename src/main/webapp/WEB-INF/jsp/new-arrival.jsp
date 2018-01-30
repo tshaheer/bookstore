@@ -1,4 +1,5 @@
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <div class="row">
 	<section style="text-align: center">
 		<a href="#"><i class="fa fa-angle-left"></i></a>
@@ -9,126 +10,18 @@
 </div>
 <div class="row">
 	<div class="col-md-12">
-		<div class="col-sm-6 col-md-3">
-			<div class="thumbnail">
-				<img src="resources/images/books/default_book.jpg"
-					class="img-responsive">
-				<div class="caption">
-					<div class="row">
-						<div class="col-md-6 col-xs-6">
-							<h3>Title</h3>
-						</div>
-						<div class="col-md-6 col-xs-6 price">
-							<h3>
-								<label>$000.00</label>
-							</h3>
-						</div>
-					</div>
-					<p>Donec id elit non mi porta gravida at eget metus. Fusce
-						dapibus, tellus ac cursus commodo</p>
-					<div class="row">
-						<div class="col-md-6">
-							<a class="btn btn-primary btn-product"><span
-								class="glyphicon glyphicon-eye-open"></span> View</a>
-						</div>
-						<div class="col-md-6">
-							<a href="#" class="btn btn-success btn-product"><span
-								class="glyphicon glyphicon-shopping-cart"></span> Buy</a>
-						</div>
-					</div>
+		<c:forEach var="product" items="${products}">
+			<div class="col-sm-6 col-md-3">
+				<div class="thumbnail">
+					<img src="<c:url value='resources/images/books/${product.imageUrl}' />" alt="Cover Image" />
+					<div class="caption">
+                        <h4>${product.title}</h4>
+                        <c:set var="shortDesc" value="${fn:substring(product.description, 0, 100)}..." />
+                        <p>${shortDesc}</p>
+                        <a href="<c:url value='' />" class="btn btn-primary btn-block">More</a>
+                     </div>
 				</div>
 			</div>
-		</div>
-		<div class="col-sm-6 col-md-3">
-			<div class="thumbnail">
-				<img src="resources/images/books/default_book.jpg"
-					class="img-responsive">
-				<div class="caption">
-					<div class="row">
-						<div class="col-md-6 col-xs-6">
-							<h3>Title</h3>
-						</div>
-						<div class="col-md-6 col-xs-6 price">
-							<h3>
-								<label>$000.00</label>
-							</h3>
-						</div>
-					</div>
-					<p>Donec id elit non mi porta gravida at eget metus. Fusce
-						dapibus, tellus ac cursus commodo</p>
-					<div class="row">
-						<div class="col-md-6">
-							<a class="btn btn-primary btn-product"><span
-								class="glyphicon glyphicon-eye-open"></span> View</a>
-						</div>
-						<div class="col-md-6">
-							<a href="#" class="btn btn-success btn-product"><span
-								class="glyphicon glyphicon-shopping-cart"></span> Buy</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-6 col-md-3">
-			<div class="thumbnail">
-				<img src="resources/images/books/default_book.jpg"
-					class="img-responsive">
-				<div class="caption">
-					<div class="row">
-						<div class="col-md-6 col-xs-6">
-							<h3>Title</h3>
-						</div>
-						<div class="col-md-6 col-xs-6 price">
-							<h3>
-								<label>$000.00</label>
-							</h3>
-						</div>
-					</div>
-					<p>Donec id elit non mi porta gravida at eget metus. Fusce
-						dapibus, tellus ac cursus commodo</p>
-					<div class="row">
-						<div class="col-md-6">
-							<a class="btn btn-primary btn-product"><span
-								class="glyphicon glyphicon-eye-open"></span> View</a>
-						</div>
-						<div class="col-md-6">
-							<a href="#" class="btn btn-success btn-product"><span
-								class="glyphicon glyphicon-shopping-cart"></span> Buy</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-6 col-md-3">
-			<div class="thumbnail">
-				<img src="resources/images/books/default_book.jpg"
-					class="img-responsive">
-				<div class="caption">
-					<div class="row">
-						<div class="col-md-6 col-xs-6">
-							<h3>Title</h3>
-						</div>
-						<div class="col-md-6 col-xs-6 price">
-							<h3>
-								<label>$000.00</label>
-							</h3>
-						</div>
-					</div>
-					<p>Donec id elit non mi porta gravida at eget metus. Fusce
-						dapibus, tellus ac cursus commodo</p>
-					<div class="row">
-						<div class="col-md-6">
-							<a class="btn btn-primary btn-product"><span
-								class="glyphicon glyphicon-eye-open"></span> View</a>
-						</div>
-						<div class="col-md-6">
-							<a href="#" class="btn btn-success btn-product"><span
-								class="glyphicon glyphicon-shopping-cart"></span> Buy</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
+		</c:forEach>
 	</div>
 </div>
