@@ -20,13 +20,36 @@ import com.bookstore.util.DBManager;
 
 /**
  * This class represents a concrete JDBC implementation of the
- * {@link productDao} interface.
+ * {@link ProductDao} interface.
  *
  * @author Shaheer
  */
 public class JdbcProductDao extends GenericJDBCDao<Product, Long> implements ProductDao {
 
 	private static final Logger logger = Logger.getLogger(JdbcProductDao.class);
+	
+	@Override
+	public Product findOneByISBN(String isbn) {
+		return this.findByConditionUnique("isbn = '"+ isbn +"'");
+	}
+	
+	@Override
+	public List<Product> findProductsByCategoryName(String name) {
+		String sql = "SELECT " + getTableColumns() + " from " + getTableName()
+				+ " INNER JOIN category_product_xref on product.id = category_product_xref.product_id INNER JOIN category on category.id = category_product_xref.category_id AND category.name = ?";
+		logger.debug(sql);
+		List<Product> books = new ArrayList<>();
+		try (Connection connection = DBManager.getDBConnection();
+				PreparedStatement statement = DAOUtil.prepareStatement(connection, sql, false, name);
+				ResultSet resultSet = statement.executeQuery();) {
+			while (resultSet.next()) {
+				books.add(this.getEntityFromResultSet(resultSet));
+			}
+		} catch (SQLException e) {
+			throw new DataAccessException(e);
+		}
+		return books;
+	}
 
 	@Override
 	public List<Product> selectNewestProducts() {
@@ -56,21 +79,10 @@ public class JdbcProductDao extends GenericJDBCDao<Product, Long> implements Pro
 	}
 
 	@Override
-	protected Product getEntityFromResultSet(ResultSet resultSet) throws SQLException {
-		Product book = new Product();
-		book.setIsbn(resultSet.getString("isbn"));
-		book.setTitle(resultSet.getString("title"));
-		book.setPrice(resultSet.getFloat("price"));
-		book.setPubDate(DAOUtil.toLocalDate(resultSet.getDate("pub_date")));
-		book.setDescription(resultSet.getString("description"));
-		book.setImageUrl(resultSet.getString("image_url"));
-		return book;
-	}
-
-	@Override
 	protected Object[] getEntityParameterValues(Product entity) {
 		Object[] values;
 		if (entity.getId() == null) {
+			// save
 			// generate ISBN
 			final String newIsbn = UUID.randomUUID().toString().replace("-", "");
 			entity.setIsbn(newIsbn);
@@ -80,11 +92,24 @@ public class JdbcProductDao extends GenericJDBCDao<Product, Long> implements Pro
 			values = new Object[] { entity.getIsbn(), entity.getTitle(), entity.getPrice(),
 					DAOUtil.toSqlDate(entity.getPubDate()), entity.getDescription(), entity.getImageUrl() };
 		} else {
+			// update
 			values = new Object[] { entity.getIsbn(), entity.getTitle(), entity.getPrice(),
 					DAOUtil.toSqlDate(entity.getPubDate()), entity.getDescription(), entity.getImageUrl(),
 					entity.getId() };
 		}
 		return values;
+	}
+
+	@Override
+	protected Product getEntityFromResultSet(ResultSet resultSet) throws SQLException {
+		Product book = new Product();
+		book.setIsbn(resultSet.getString("isbn"));
+		book.setTitle(resultSet.getString("title"));
+		book.setPrice(resultSet.getFloat("price"));
+		book.setPubDate(DAOUtil.toLocalDate(resultSet.getDate("pub_date")));
+		book.setDescription(resultSet.getString("description"));
+		book.setImageUrl(resultSet.getString("image_url"));
+		return book;
 	}
 
 }

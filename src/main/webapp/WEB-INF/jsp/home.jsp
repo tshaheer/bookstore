@@ -17,8 +17,6 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jsp/fragments/nav_bar.jsp"></jsp:include>
-	<br>
-	<br>
 	<div class="container-fluid">
 		<!-- dynamic area -->
 		<jsp:include page="<%= strDynIncPage %>" flush="true" />

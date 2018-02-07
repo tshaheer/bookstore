@@ -14,23 +14,24 @@ create table PRODUCT (
 
 drop table if exists AUTHOR;
 create table AUTHOR (
-       AUTHOR_ID int not null unique,
-       AUTHOR_NAME char(128) not null,
-       primary key(AUTHOR_ID));
+       ID BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+       NAME char(128) not null,
+       primary key(ID),
+       UNIQUE (NAME));
 
 drop table if exists PRODUCT_AUTHOR_XREF;
 create table PRODUCT_AUTHOR_XREF (
-       PRODUCT_ISBN char(20) references PRODUCT,
+       PRODUCT_ID int references PRODUCT,
        AUTHOR_ID int references AUTHOR);
 
 drop table if exists CATEGORY;
 create table CATEGORY (
-       CATEGORY_ID int not null,
-       CATEGORY_NAME char(30) not null,
-       FEATURED_PRODUCT char(20) references PRODUCT,
-       primary key(CATEGORY_ID));
+       ID BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+       NAME char(30) not null,
+       primary key(ID),
+       UNIQUE (NAME));
 
 drop table if exists CATEGORY_PRODUCT_XREF;
 create table CATEGORY_PRODUCT_XREF (
        CATEGORY_ID int references CATEGORY,
-       PRODUCT_ISBN char(20) references PRODUCT);
+       PRODUCT_ID int references PRODUCT);

@@ -39,7 +39,7 @@ insert into PRODUCT (TITLE, PUB_DATE, ISBN, DESCRIPTION, PRICE, IMAGE_URL) value
  primarily based on the industry-leading Motorola phone emulator.', 49.99, 'wjpwj2me.jpg');
 
 insert into PRODUCT (TITLE, PUB_DATE, ISBN, DESCRIPTION, PRICE, IMAGE_URL) values
-       ('"Developing Java Servlets, Second Edition"',
+       ('Developing Java Servlets, Second Edition',
         '2001-05-21','672321076','Developing Java Servlets, Second Edition, is a 
  comprehensive, code-intensive book for professional Java developers. It explains the Java 
  Servlet API architecture and client/server development concepts and contains detailed, 
@@ -49,7 +49,7 @@ insert into PRODUCT (TITLE, PUB_DATE, ISBN, DESCRIPTION, PRICE, IMAGE_URL) value
   ', 39.99, 'djs.jpg');
 
 insert into PRODUCT (TITLE, PUB_DATE, ISBN, DESCRIPTION, PRICE, IMAGE_URL) values
-       ('"Sams Teach Yourself Java 2 in 21 Days, Professional Reference Edition, Second Edition"',
+       ('Sams Teach Yourself Java 2 in 21 Days, Professional Reference Edition, Second Edition',
         '2001-05-21','672320614','Sams Teach Yourself Java in 21 Days continues to be one 
  of the most popular, best-selling Java tutorials on the market. It has been acclaimed for 
  its clear and personable writing, for its extensive use of examples, and for its logical 
@@ -92,7 +92,7 @@ insert into PRODUCT (TITLE, PUB_DATE, ISBN, DESCRIPTION, PRICE, IMAGE_URL) value
  XML works with the Swing classes.', 49.99, 'xmldwj2.jpg');
 
 insert into PRODUCT (TITLE, PUB_DATE, ISBN, DESCRIPTION, PRICE, IMAGE_URL) values
-       ('"Sams Teach Yourself JavaScript in 24 Hours, Second Edition"',
+       ('Sams Teach Yourself JavaScript in 24 Hours, Second Edition',
         '2000-10-9','672320258','Second edition updates the current best-selling book to 
  cover the latest version, JavaScript 1.5', 24.99, 'styjs.jpg');
 
@@ -106,7 +106,7 @@ insert into PRODUCT (TITLE, PUB_DATE, ISBN, DESCRIPTION, PRICE, IMAGE_URL) value
  digital signatures, key management, and distributed computing: CORBA, RMI, and servlets.', 49.99, 'jsh.jpg');
 
 insert into PRODUCT (TITLE, PUB_DATE, ISBN, DESCRIPTION, PRICE, IMAGE_URL) values
-       ('"Sams Teach Yourself Java 2 in 21 Days, Second Edition"',
+       ('Sams Teach Yourself Java 2 in 21 Days, Second Edition',
         '2000-09-20','672319586','Sams Teach Yourself Java in 21 Days, Second Edition is 
  known for its clear and personable writing, its extensive use of examples, and its 
  logical step-by-step organization. This new edition maintains and improves upon all these 
@@ -114,7 +114,7 @@ insert into PRODUCT (TITLE, PUB_DATE, ISBN, DESCRIPTION, PRICE, IMAGE_URL) value
  Java and the way the language is used today.', 29.99, 'styj22.jpg');
 
 insert into PRODUCT (TITLE, PUB_DATE, ISBN, DESCRIPTION, PRICE, IMAGE_URL) values
-       ('"JavaScript Unleashed, Third Edition"',
+       ('JavaScript Unleashed, Third Edition',
         '2000-06-23','067231763X','JavaScript Unleashed, Third Edition serves as a 
  reference to the JavaScript language for the high- end programmer as well as a guide for 
  developing JavaScript applications from the ground up. The topics most important to the 
@@ -280,278 +280,273 @@ insert into PRODUCT (TITLE, PUB_DATE, ISBN, DESCRIPTION, PRICE, IMAGE_URL) value
  Jamaican Blue Mountain coffee beans instead.  The caffeine will be just the thing to keep 
  you going.', 12.00, 'jamcof.jpeg');
 
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (1, 'Ben Forta');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (2, 'Bill Mccarty');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (3, 'Bulusu Lakshman');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (4, 'Charlton Ting');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (5, 'Donald Doherty');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (6, 'James Goodwill');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (7, 'Jamie Jaworski');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (8, 'Jason Gilliam');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (9, 'Jose Annunziato');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (10, 'Kenneth Litwak');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (11, 'Laura Lemay');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (12, 'Michael Kroll');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (13, 'Michael McCaffery');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (14, 'Michael Moncur');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (15, 'Michael Morrison');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (16, 'Mike Morgan');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (17, 'Paul Hyde');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (18, 'Paul Perrone');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (19, 'R. Allen Wyke');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (20, 'Rogers Cadenhead');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (21, 'Stefan Haustein');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (22, 'Stephanie Fesler');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (23, 'Stephen Gilbert');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (24, 'Vartan Piroumian');
-insert into AUTHOR (AUTHOR_ID, AUTHOR_NAME)
-       values (25, 'Yu Feng');
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672320959', author_id from author where author_name='Stefan Haustein';
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672320959', author_id from author where author_name='Michael Kroll';
+insert into AUTHOR (NAME)
+       values ('Ben Forta');
+insert into AUTHOR (NAME)
+       values ('Bill Mccarty');
+insert into AUTHOR (NAME)
+       values ('Bulusu Lakshman');
+insert into AUTHOR (NAME)
+       values ('Charlton Ting');
+insert into AUTHOR (NAME)
+       values ('Donald Doherty');
+insert into AUTHOR (NAME)
+       values ('James Goodwill');
+insert into AUTHOR (NAME)
+       values ('Jamie Jaworski');
+insert into AUTHOR (NAME)
+       values ('Jason Gilliam');
+insert into AUTHOR (NAME)
+       values ('Jose Annunziato');
+insert into AUTHOR (NAME)
+       values ('Kenneth Litwak');
+insert into AUTHOR (NAME)
+       values ('Laura Lemay');
+insert into AUTHOR (NAME)
+       values ('Michael Kroll');
+insert into AUTHOR (NAME)
+       values ('Michael McCaffery');
+insert into AUTHOR (NAME)
+       values ('Michael Moncur');
+insert into AUTHOR (NAME)
+       values ('Michael Morrison');
+insert into AUTHOR (NAME)
+       values ('Mike Morgan');
+insert into AUTHOR (NAME)
+       values ('Paul Hyde');
+insert into AUTHOR (NAME)
+       values ('Paul Perrone');
+insert into AUTHOR (NAME)
+       values ('R. Allen Wyke');
+insert into AUTHOR (NAME)
+       values ('Rogers Cadenhead');
+insert into AUTHOR (NAME)
+       values ('Stefan Haustein');
+insert into AUTHOR (NAME)
+       values ('Stephanie Fesler');
+insert into AUTHOR (NAME)
+       values ('Stephen Gilbert');
+insert into AUTHOR (NAME)
+       values ('Vartan Piroumian');
+insert into AUTHOR (NAME)
+       values ('Yu Feng');
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672321173', author_id from author where author_name='Bulusu Lakshman';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+       values ((select id from product where isbn='672320959'), (select id from author where name='Stefan Haustein'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672321416', author_id from author where author_name='R. Allen Wyke';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672320959'), (select id from author where name='Michael Kroll'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672321424', author_id from author where author_name='Michael Morrison';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672321173'), (select id from author where name='Bulusu Lakshman'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672321351', author_id from author where author_name='Yu Feng';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672321416'), (select id from author where name='R. Allen Wyke'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672321076', author_id from author where author_name='James Goodwill';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672321424'), (select id from author where name='Michael Morrison'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672320614', author_id from author where author_name='Laura Lemay';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672321351'), (select id from author where name='Yu Feng'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672320231', author_id from author where author_name='Stephanie Fesler';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672321076'), (select id from author where name='James Goodwill'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672320231', author_id from author where author_name='Jose Annunziato';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672320614'), (select id from author where name='Laura Lemay'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672320363', author_id from author where author_name='Rogers Cadenhead';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672320231'), (select id from author where name='Stephanie Fesler'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672316536', author_id from author where author_name='Michael Daconta';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672320231'), (select id from author where name='Jose Annunziato'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672320258', author_id from author where author_name='Michael Moncur';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672320363'), (select id from author where name='Rogers Cadenhead'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672316021', author_id from author where author_name='Jamie Jaworski';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672316536'), (select id from author where name='Michael Daconta'));
+
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672320258'), (select id from author where name='Michael Moncur'));
+
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672316021'), (select id from author where name='Jamie Jaworski'));
        
-insert into PRODUCT_AUTHOR_XREF  (PRODUCT_ISBN, AUTHOR_ID)
-       select '672319586', author_id from author where author_name='Rogers Cadenhead';
+insert into PRODUCT_AUTHOR_XREF  (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672319586'), (select id from author where name='Rogers Cadenhead'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672319586', author_id from author where author_name='Laura Lemay';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672319586'), (select id from author where name='Laura Lemay'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '067231763X', author_id from author where author_name='R. Allen Wyke';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='067231763X'), (select id from author where name='R. Allen Wyke'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672319020', author_id from author where author_name='James Goodwill';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672319020'), (select id from author where name='James Goodwill'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672317958', author_id from author where author_name='Paul Perrone';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672317958'), (select id from author where name='Paul Perrone'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '067231424X', author_id from author where author_name='Donald Doherty';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='067231424X'), (select id from author where name='Donald Doherty'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672316544', author_id from author where author_name='Kenneth Litwak';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672316544'), (select id from author where name='Kenneth Litwak'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672316684', author_id from author where author_name='Bill Mccarty';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672316684'), (select id from author where name='Bill Mccarty'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672316684', author_id from author where author_name='Stephen Gilbert';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672316684'), (select id from author where name='Stephen Gilbert'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672315467', author_id from author where author_name='Vartan Piroumian';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672315467'), (select id from author where name='Vartan Piroumian'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672315858', author_id from author where author_name='Paul Hyde';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672315858'), (select id from author where name='Paul Hyde'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672315475', author_id from author where author_name='Charlton Ting';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672315475'), (select id from author where name='Charlton Ting'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672315475', author_id from author where author_name='Jason Gilliam';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672315475'), (select id from author where name='Jason Gilliam'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672315475', author_id from author where author_name='R. Allen Wyke';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672315475'), (select id from author where name='R. Allen Wyke'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672316005', author_id from author where author_name='James Goodwill';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672316005'), (select id from author where name='James Goodwill'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672316978', author_id from author where author_name='Mike Morgan';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672316978'), (select id from author where name='Mike Morgan'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672316315', author_id from author where author_name='Jamie Jaworski';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672316315'), (select id from author where name='Jamie Jaworski'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672316382', author_id from author where author_name='Laura Lemay';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672316382'), (select id from author where name='Laura Lemay'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672314517', author_id from author where author_name='Michael McCaffery';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672314517'), (select id from author where name='Michael McCaffery'));
 
-insert into PRODUCT_AUTHOR_XREF (PRODUCT_ISBN, AUTHOR_ID)
-       select '672315378', author_id from author where author_name='Bill Mccarty';
+insert into PRODUCT_AUTHOR_XREF (PRODUCT_ID, AUTHOR_ID)
+        values ((select id from product where isbn='672315378'), (select id from author where name='Bill Mccarty'));
 
-insert into CATEGORY (CATEGORY_ID, CATEGORY_NAME, FEATURED_PRODUCT)
-       values (1, 'Java', '672321076');
+insert into CATEGORY (NAME) values ('Java');
+insert into CATEGORY (NAME) values ('J2ME');
+insert into CATEGORY (NAME) values ('J2EE');
+insert into CATEGORY (NAME) values ('JDBC');
 
-insert into CATEGORY (CATEGORY_ID,  CATEGORY_NAME, FEATURED_PRODUCT)
-       values (2, 'J2ME', '672321351');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672320959'));
 
-insert into CATEGORY (CATEGORY_ID, CATEGORY_NAME, FEATURED_PRODUCT)
-       values (3, 'J2EE', '672317958');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672321173'));
 
-insert into CATEGORY (CATEGORY_ID, CATEGORY_NAME, FEATURED_PRODUCT)
-       values (4, 'JDBC', '672321173');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672321424'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672320959');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672321351'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672321173');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672321076'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672321424');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672320614'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672321351');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672320231'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672321076');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672320363'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672320614');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672316536'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672320231');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672320258'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672320363');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672316021'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672316536');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672319586'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672320258');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='067231763X'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672316021');
+insert into CATEGORY_PRODUCT_XREF  (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672319020'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672319586');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672317958'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '067231763X');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='067231424X'));
 
-insert into CATEGORY_PRODUCT_XREF  (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672319020');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672316544'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672317958');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672316684'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '067231424X');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672315467'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672316544');
+insert into CATEGORY_PRODUCT_XREF  (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672315858'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672316684');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672315475'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672315467');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672316005'));
 
-insert into CATEGORY_PRODUCT_XREF  (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672315858');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672316978'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672315475');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672316315'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672316005');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672316382'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672316978');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672314517'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672316315');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='Java'), (select id from product where isbn='672315378'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672316382');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='J2ME'), (select id from product where isbn='672320959'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672314517');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='J2ME'), (select id from product where isbn='672321424'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (1, '672315378');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='J2ME'), (select id from product where isbn='672321351'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (2, '672320959');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='J2EE'), (select id from product where isbn='672320231'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (2, '672321424');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='J2EE'), (select id from product where isbn='672317958'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (2, '672321351');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='JDBC'), (select id from product where isbn='672321173'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (3, '672320231');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='JDBC'), (select id from product where isbn='672320614'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (3, '672317958');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='JDBC'), (select id from product where isbn='672320231'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (4, '672321173');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='JDBC'), (select id from product where isbn='672319020'));
 
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (4, '672320614');
-
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (4, '672320231');
-
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (4, '672319020');
-
-insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ISBN)
-       values (4, '672316005');
+insert into CATEGORY_PRODUCT_XREF (CATEGORY_ID, PRODUCT_ID)
+       values ((select id from category where name='JDBC'), (select id from product where isbn='672316005'));

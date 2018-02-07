@@ -161,10 +161,10 @@ public abstract class GenericJDBCDao<T extends AbstractEntity, ID extends Serial
 			return "";
 		}
 		StringBuilder clauseSb = new StringBuilder();
-		conditions.forEach(c -> clauseSb.append(c).append(" AND"));
+		conditions.forEach(c -> clauseSb.append(c).append(" AND "));
 		if (clauseSb.length() > 0) {
-			clauseSb.insert(0, " WHERE");
-			clauseSb.setLength(clauseSb.length() - 3);
+			clauseSb.insert(0, " WHERE ");
+			clauseSb.setLength(clauseSb.length() - 4);
 		}
 		return clauseSb.toString();
 	}
@@ -173,8 +173,9 @@ public abstract class GenericJDBCDao<T extends AbstractEntity, ID extends Serial
 		String query = "INSERT INTO " + this.getTableName() + "(" + PRIMARY_KEY_COLUMN + ","
 				+ this.getTableColumns() + ") values (null,";
 		StringBuilder colSb = new StringBuilder();
-		Arrays.asList(this.getTableColumns().split(",")).forEach(col -> colSb.append(" ?, "));
-		colSb.append(" ? )");
+		Arrays.asList(this.getTableColumns().split(",")).forEach(col -> colSb.append(" ?,"));
+		colSb.setLength(colSb.length() - 1);
+		colSb.append(")");
 		return query + colSb.toString();
 	}
 
@@ -221,6 +222,7 @@ public abstract class GenericJDBCDao<T extends AbstractEntity, ID extends Serial
 
 	private T createEntity(T entity) {
 		String query = this.getInsertQuery();
+		logger.debug(query);
 		Object[] values = this.getEntityParameterValues(entity);
 		try (Connection connection = DBManager.getDBConnection();
 				PreparedStatement statement = DAOUtil.prepareStatement(connection, query, true, values);) {

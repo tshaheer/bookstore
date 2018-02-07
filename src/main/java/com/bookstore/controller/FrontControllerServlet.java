@@ -29,7 +29,8 @@ public class FrontControllerServlet extends HttpServlet {
 	private static final Logger logger = Logger.getLogger(FrontControllerServlet.class);
 
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		logger.debug("DispatcherServlet with name '" + getServletName() + "'" + " started processing "
 				+ request.getMethod() + " request for [" + request.getRequestURI() + "]");
 		response.setContentType(Constants.CONTENT_TYPE);
@@ -39,7 +40,7 @@ public class FrontControllerServlet extends HttpServlet {
 				.getRequestDispatcher(Constants.JSP_ROOT + "home.jsp?paramDynInclPage=" + view);
 		dispatcher.forward(request, response);
 	}
-	
+
 	private Command getCommand(HttpServletRequest request) {
 		String action = request.getParameter(Constants.ACTION_PARAM);
 		Class<?> commandClass = getCommandClass(action);
@@ -47,7 +48,8 @@ public class FrontControllerServlet extends HttpServlet {
 			return (Command) commandClass.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
 			logger.error(e.getMessage());
-			throw new CommandCreationException("Command class '" + commandClass + "' cannot be instantiated. Verify the request parameter", e);
+			throw new CommandCreationException(
+					"Command class '" + commandClass + "' cannot be instantiated. Verify the request parameter", e);
 		}
 	}
 

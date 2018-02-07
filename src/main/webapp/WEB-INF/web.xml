@@ -38,4 +38,8 @@
 		<res-auth>Container</res-auth>
 	</resource-ref>
 
+	<listener>
+		<listener-class>com.bookstore.listener.BookStoreContextListener</listener-class>
+	</listener>
+
 </web-app>

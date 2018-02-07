@@ -10,14 +10,15 @@ import com.bookstore.dao.factory.DAOFactory;
 import com.bookstore.model.Product;
 import com.bookstore.util.Constants;
 
-public class NewArrivalCommand implements Command {
+public class ProductCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
+		final String categoryName = request.getParameter("name");
 		ProductDao productDao = DAOFactory.getDAOFactory(DAOFactory.JDBC).getProductDao();
-		List<Product> newProducts = productDao.selectNewestProducts();
-		request.setAttribute("products", newProducts);
-		return Constants.JSP_ROOT + "new-arrival";
+		List<Product> products = productDao.findProductsByCategoryName(categoryName);
+		request.setAttribute("products", products);
+		return Constants.JSP_ROOT + "products";
 	}
 	
 }
