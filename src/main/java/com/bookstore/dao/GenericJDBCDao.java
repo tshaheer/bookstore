@@ -1,6 +1,5 @@
 package com.bookstore.dao;
 
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,7 +23,7 @@ import com.bookstore.util.DBManager;
  *
  * @author Shaheer
  */
-public abstract class GenericJDBCDao<T extends AbstractEntity, ID extends Serializable> implements GenericDao<T, Long> {
+public abstract class GenericJDBCDao<T extends AbstractEntity> implements GenericDao<T, Long> {
 
 	private static final Logger logger = Logger.getLogger(GenericJDBCDao.class);
 	

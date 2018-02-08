@@ -14,6 +14,9 @@ public class Product extends AbstractEntity {
 	private LocalDate pubDate;
 	private String description;
 	private String imageUrl;
+	
+	private String authorsString;
+	private String categoriesString;
 
 	public String getIsbn() {
 		return isbn;
@@ -61,6 +64,22 @@ public class Product extends AbstractEntity {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+
+	public String getAuthorsString() {
+		return authorsString;
+	}
+
+	public void setAuthorsString(String authorsString) {
+		this.authorsString = authorsString;
+	}
+
+	public String getCategoriesString() {
+		return categoriesString;
+	}
+
+	public void setCategoriesString(String categoriesString) {
+		this.categoriesString = categoriesString;
 	}
 
 	/**

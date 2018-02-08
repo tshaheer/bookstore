@@ -24,7 +24,7 @@ import com.bookstore.util.DBManager;
  *
  * @author Shaheer
  */
-public class JdbcProductDao extends GenericJDBCDao<Product, Long> implements ProductDao {
+public class JdbcProductDao extends GenericJDBCDao<Product> implements ProductDao {
 
 	private static final Logger logger = Logger.getLogger(JdbcProductDao.class);
 	
@@ -35,7 +35,7 @@ public class JdbcProductDao extends GenericJDBCDao<Product, Long> implements Pro
 	
 	@Override
 	public List<Product> findProductsByCategoryName(String name) {
-		String sql = "SELECT " + getTableColumns() + " from " + getTableName()
+		String sql = "SELECT product.id," + getTableColumns() + " from " + getTableName()
 				+ " INNER JOIN category_product_xref on product.id = category_product_xref.product_id INNER JOIN category on category.id = category_product_xref.category_id AND category.name = ?";
 		logger.debug(sql);
 		List<Product> books = new ArrayList<>();
@@ -103,6 +103,7 @@ public class JdbcProductDao extends GenericJDBCDao<Product, Long> implements Pro
 	@Override
 	protected Product getEntityFromResultSet(ResultSet resultSet) throws SQLException {
 		Product book = new Product();
+		book.setId(resultSet.getLong("id"));
 		book.setIsbn(resultSet.getString("isbn"));
 		book.setTitle(resultSet.getString("title"));
 		book.setPrice(resultSet.getFloat("price"));
