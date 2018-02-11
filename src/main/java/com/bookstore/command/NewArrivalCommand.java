@@ -14,7 +14,7 @@ public class NewArrivalCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		ProductDao productDao = DAOFactory.getDAOFactory(DAOFactory.JDBC).getProductDao();
+		ProductDao productDao = DAOFactory.getDAOFactory(DAOFactory.FactoryType.JDBC).getProductDao();
 		List<Product> newProducts = productDao.selectNewestProducts();
 		request.setAttribute("products", newProducts);
 		return Constants.JSP_ROOT + "new-arrival";

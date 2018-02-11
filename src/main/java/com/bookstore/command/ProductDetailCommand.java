@@ -1,7 +1,6 @@
 package com.bookstore.command;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,9 +18,9 @@ public class ProductDetailCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		final String isbn = request.getParameter("isbn");
-		ProductDao productDao = DAOFactory.getDAOFactory(DAOFactory.JDBC).getProductDao();
-		Product product = productDao.findOneByISBN(isbn);
+		final String productCode = request.getParameter(Constants.PARAM_PRODUCT_CODE);
+		ProductDao productDao = DAOFactory.getDAOFactory(DAOFactory.FactoryType.JDBC).getProductDao();
+		Product product = productDao.findOneByISBN(productCode);
 		populateAuthorsInfo(product);
 		populateCategoryInfo(product);
 		request.setAttribute("product", product);
@@ -29,23 +28,15 @@ public class ProductDetailCommand implements Command {
 	}
 
 	private void populateAuthorsInfo(Product product) {
-		AuthorDao authorDao = DAOFactory.getDAOFactory(DAOFactory.JDBC).getAuthorDao();
+		AuthorDao authorDao = DAOFactory.getDAOFactory(DAOFactory.FactoryType.JDBC).getAuthorDao();
 		List<Author> authors = authorDao.findAuthorsByProductId(product.getId());
-		product.setAuthorsString(createAuthorsString(authors));
+		product.setAuthors(authors);
 	}
 	
 	private void populateCategoryInfo(Product product) {
-		CategoryDao categoryDao = DAOFactory.getDAOFactory(DAOFactory.JDBC).getCategoryDao();
+		CategoryDao categoryDao = DAOFactory.getDAOFactory(DAOFactory.FactoryType.JDBC).getCategoryDao();
 		List<Category> categories = categoryDao.findCategoriesByProductId(product.getId());
-		product.setCategoriesString(createCategoriesString(categories));
-	}
-
-	private String createAuthorsString(List<Author> authors) {
-		return authors.stream().map(Author::getName).collect(Collectors.joining(";"));
-	}
-	
-	private String createCategoriesString(List<Category> categories) {
-		return categories.stream().map(Category::getName).collect(Collectors.joining(";"));
+		product.setCategories(categories);
 	}
 
 }

@@ -1,22 +1,26 @@
 package com.bookstore.model;
 
+import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.bookstore.util.Constants;
 
 /**
  * @author Shaheer
  */
 public class Product extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
-	
+
 	private String isbn;
 	private String title;
 	private float price;
 	private LocalDate pubDate;
 	private String description;
 	private String imageUrl;
-	
-	private String authorsString;
-	private String categoriesString;
+	private List<Author> authors;
+	private List<Category> categories;
 
 	public String getIsbn() {
 		return isbn;
@@ -66,25 +70,38 @@ public class Product extends AbstractEntity {
 		this.imageUrl = imageUrl;
 	}
 
+	public List<Author> getAuthors() {
+		return authors;
+	}
+
+	public void setAuthors(List<Author> authors) {
+		this.authors = authors;
+	}
+
+	public List<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}
+
 	public String getAuthorsString() {
-		return authorsString;
+		return authors.stream().map(Author::getName).collect(Collectors.joining(";"));
 	}
-
-	public void setAuthorsString(String authorsString) {
-		this.authorsString = authorsString;
-	}
-
+	
 	public String getCategoriesString() {
-		return categoriesString;
+		return categories.stream().map(Category::getName).collect(Collectors.joining(";"));
 	}
 
-	public void setCategoriesString(String categoriesString) {
-		this.categoriesString = categoriesString;
+	public String getPriceCurrencyFormat() {
+		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Constants.DEFAULT_LOCALE);
+		return currencyFormat.format(price);
 	}
 
 	/**
-	 * The product ISBN is unique for each Product. So this should compare Product by
-	 * ISBN only.
+	 * The product ISBN is unique for each Product. So this should compare Product
+	 * by ISBN only.
 	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */

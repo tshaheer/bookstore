@@ -23,8 +23,9 @@ import com.bookstore.dao.ProductDao;
 public interface DAOFactory {
 	
 	// List of DAO types supported by the factory
-	int JDBC = 1;
-	int HIBERNATE = 2;
+	enum FactoryType {
+		JDBC, HIBERNATE;
+	}
 
 	/**
 	 * Returns a new DAOFactory instance for the given data source connectivity
@@ -34,7 +35,7 @@ public interface DAOFactory {
 	 *            The DAO type to return a new DAOFactory instance for.
 	 * @return A new DAOFactory instance for the given DAO type.
 	 */
-	public static DAOFactory getDAOFactory(int whichFactory) {
+	public static DAOFactory getDAOFactory(FactoryType whichFactory) {
 		switch (whichFactory) {
 		case JDBC:
 			return new DAOFactoryJDBC();

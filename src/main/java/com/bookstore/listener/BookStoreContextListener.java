@@ -27,7 +27,7 @@ public class BookStoreContextListener implements ServletContextListener {
 		logger.info("Initializing application context");
 		ServletContext sContext = event.getServletContext();
 		// find all categories and set it as a context attribute
-		CategoryDao categoryDao = DAOFactory.getDAOFactory(DAOFactory.JDBC).getCategoryDao();
+		CategoryDao categoryDao = DAOFactory.getDAOFactory(DAOFactory.FactoryType.JDBC).getCategoryDao();
 		List<Category> categories = (List<Category>) categoryDao.findAll();
 		sContext.setAttribute("categories", categories);
 	}

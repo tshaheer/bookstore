@@ -28,22 +28,22 @@
 		</div>
 		<div class="col-sm-2 well well-lg">
 			<div>
-				<p class="price">$ ${product.price}</p>
-				<form method="post" action="<c:url value='/order/addItem'/>"
+				<p class="price">${product.priceCurrencyFormat}</p>
+				<form method="post" action="<c:url value='home.do?action=Cart' />"
 					class="float-left">
-					<input type="hidden" name="productCode"
+					<input type="hidden" name="isbn"
 						value="<c:out value='${product.isbn}' />" />
 					<div class="form-group">
 						<em>Free shipping</em>
 					</div>
 					<div class="form-group">
-						<input type="number" class="form-control" style="width: 60%"
-							min="0" value="0" />
+						<input type="number" name="qty"
+							class="form-control text-center col-xs-offset-1" min="1"
+							value="1" style="width: 50%" />
 					</div>
 					<div class="form-group">
-						<button type="button" class="btn btn-success">
-							<span class="glyphicon glyphicon-shopping-cart"></span> Add To
-							Cart
+						<button class="btn btn-success btn-block" name="op" value="add">
+							<i class="fa fa-shopping-cart"></i> Add To Cart
 						</button>
 					</div>
 				</form>

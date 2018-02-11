@@ -19,9 +19,9 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a
+					<li><a
 						href="<c:url value='home.do?action=NewArrival' />">Home</a></li>
-					<li><a href="#">Books</a></li>
+					<li><a href="<c:url value='home.do?action=Product' />">Books</a></li>
 					<li class="dropdown"><a data-toggle="dropdown"
 						class="dropdown-toggle" href="#">Category <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -40,8 +40,8 @@
 							<li><a href="<c:url value='home.do?action=Signin' />">Sign
 									in</a></li>
 						</ul></li>
-					<li><a href="#"> <span
-							class="glyphicon glyphicon-shopping-cart fa-lg"></span><span>0</span></a>
+					<li><a href="<c:url value='home.do?action=Cart' />"> <span
+							class="glyphicon glyphicon-shopping-cart fa-lg"></span><span>${cart.size}</span></a>
 					</li>
 				</ul>
 			</div>
