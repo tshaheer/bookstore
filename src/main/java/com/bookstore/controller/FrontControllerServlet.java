@@ -36,9 +36,13 @@ public class FrontControllerServlet extends HttpServlet {
 		response.setContentType(Constants.CONTENT_TYPE);
 		Command command = getCommand(request);
 		String view = command.execute(request, response);
-		RequestDispatcher dispatcher = request
-				.getRequestDispatcher(Constants.JSP_ROOT + "home.jsp?paramDynInclPage=" + view);
-		dispatcher.forward(request, response);
+		if (view.startsWith("redirect:")) {
+			response.sendRedirect(view.split("redirect:")[1]);
+		} else {
+			RequestDispatcher dispatcher = request
+					.getRequestDispatcher(Constants.JSP_ROOT + "home.jsp?paramDynInclPage=" + view);
+			dispatcher.forward(request, response);
+		}
 	}
 
 	private Command getCommand(HttpServletRequest request) {

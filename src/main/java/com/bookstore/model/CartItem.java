@@ -1,5 +1,6 @@
 package com.bookstore.model;
 
+import java.io.Serializable;
 import java.text.NumberFormat;
 
 import com.bookstore.util.Constants;
@@ -9,7 +10,9 @@ import com.bookstore.util.Constants;
  * 
  * @author Shaheer
  */
-public class CartItem {
+public class CartItem implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private Product product;
 

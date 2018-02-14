@@ -48,13 +48,13 @@
 								</td>
 								<td data-th="Price">${item.product.priceCurrencyFormat}</td>
 								<td data-th="Quantity">
-									<form method="post"	action="<c:url value='home.do?action=Cart' />">
+									<form method="post"
+										action="<c:url value='home.do?action=Cart' />">
 										<input type="hidden" name="isbn"
-											value="<c:out value='${item.product.isbn}' />" /> 
-											<input type="number" name="qty" class="form-control text-center"
+											value="<c:out value='${item.product.isbn}' />" /> <input
+											type="number" name="qty" class="form-control text-center"
 											style="width: 60%; float: left;"
-											value="<c:out value='${item.quantity}' />">
-											&nbsp;
+											value="<c:out value='${item.quantity}' />"> &nbsp;
 										<button class="btn btn-info btn-sm" name="op" value="update"
 											title="Update">
 											<i class="fa fa-refresh"></i>
@@ -85,9 +85,14 @@
 							<td colspan="2" class="hidden-xs"></td>
 							<td class="hidden-xs text-center"><strong>Total
 									${cart.totalPriceCurrencyFormat}</strong></td>
-							<td><a href="#" class="btn btn-success btn-block">Checkout
-									<i class="fa fa-angle-right"></i>
-							</a></td>
+							<td>
+								<form method="post"
+									action="<c:url value='home.do?action=Checkout'/>">
+									<button class="btn btn-success btn-block">
+										Checkout <i class="fa fa-angle-right"></i>
+									</button>
+								</form>
+							</td>
 						</tr>
 					</tfoot>
 				</table>

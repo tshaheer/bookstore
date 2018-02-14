@@ -3,6 +3,7 @@ package com.bookstore.dao.factory;
 import com.bookstore.dao.AuthorDao;
 import com.bookstore.dao.CategoryDao;
 import com.bookstore.dao.ProductDao;
+import com.bookstore.dao.UserDao;
 
 /**
  * This interface represents a Abstract DAO factory for a SQL data source. You can
@@ -52,5 +53,7 @@ public interface DAOFactory {
     CategoryDao getCategoryDao();
     
     AuthorDao getAuthorDao();
+    
+    UserDao getUserDao();
 
 }

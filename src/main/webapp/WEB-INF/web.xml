@@ -42,4 +42,13 @@
 		<listener-class>com.bookstore.listener.BookStoreContextListener</listener-class>
 	</listener>
 
+	<filter>
+		<filter-name>remember-filter</filter-name>
+		<filter-class>com.bookstore.filter.RememberMeAuthenticationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>remember-filter</filter-name>
+		<servlet-name>FrontControllerServlet</servlet-name>
+	</filter-mapping>
+
 </web-app>

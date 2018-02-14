@@ -17,9 +17,11 @@ public final class Constants {
 	public static final String DATE_FORMAT_FULL = "dd-MM-yyyy HH:mm:ss";
 	public static final String DEFAULT_IMAGEURL = "default_book.jpg";
 	public static final Locale DEFAULT_LOCALE = Locale.US;
-	public static final String ATTR_SHOPPING_CART = "cart";
 	public static final String PARAM_PRODUCT_CODE = "isbn";
 	public static final String PARAM_QUANTITY = "qty";
+	public static final String ATTR_SHOPPING_CART = "cart";
+	public static final String ATTR_USER = "customer";
+	public static final String REMEMBER_COOKIE_NAME = "remember-me";
 	
 	private Constants() {
 	}
