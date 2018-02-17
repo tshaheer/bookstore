@@ -1,7 +1,9 @@
 package com.bookstore.dao.factory;
 
+import com.bookstore.dao.AddressDao;
 import com.bookstore.dao.AuthorDao;
 import com.bookstore.dao.CategoryDao;
+import com.bookstore.dao.CreditCardDao;
 import com.bookstore.dao.ProductDao;
 import com.bookstore.dao.UserDao;
 
@@ -55,5 +57,9 @@ public interface DAOFactory {
     AuthorDao getAuthorDao();
     
     UserDao getUserDao();
+    
+    AddressDao getAddressDao();
+    
+    CreditCardDao getCreditCardDao();
 
 }

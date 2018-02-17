@@ -1,7 +1,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<div class="page-header centre-align">
-	<h1>Cart</h1>
-</div>
+<jsp:include page="fragments/page_header.jsp">
+	<jsp:param name="name" value="CART" />
+</jsp:include>
 <c:choose>
 	<c:when test="${emptyMessage != null}">
 		<h3>${emptyMessage}</h3>

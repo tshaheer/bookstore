@@ -22,7 +22,7 @@ create table ADDRESS (
        STREET_1 char(128) not null,
        STREET_2 char(128),
        CITY char(50) not null,
-       STATE char(2) not null,
+       STATE char(50) not null,
        POSTAL_CODE char(10) not null,
        primary key(ID));
 
@@ -34,12 +34,20 @@ create table ADDRESS_BOOK (
 drop table if exists CREDIT_CARD;
 create table CREDIT_CARD (
 	   ID BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-       USER_KEY BIGINT references USER,
        CARD_TYPE char(5) not null,
        CARD_NUMBER char(25) not null,
        CARD_OWNERNAME char(50) not null,
        CARD_EXPMONTH int not null,
        CARD_EXPYEAR int not null,
-       ADDRESS_KEY BIGINT references ADDRESS,
+       USER_KEY BIGINT references USER,
        primary key(ID));
 
+# User role Data population
+delete from USER_ROLE;
+delete from USER;
+
+insert into USER (EMAIL_ADDRESS, PASSWORD) values ('admin@admin.com', 'admin');
+insert into USER (EMAIL_ADDRESS, PASSWORD) values ('customer@customer.com', 'customer');
+
+insert into USER_ROLE (USER_KEY, ROLE_NAME) values ((select id from USER where EMAIL_ADDRESS='admin@admin.com'), 'ROLE_ADMIN');
+insert into USER_ROLE (USER_KEY, ROLE_NAME) values ((select id from USER where EMAIL_ADDRESS='customer@customer.com'), 'ROLE_CUSTOMER');

@@ -1,8 +1,8 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="row">
-	<div class="page-header">
-		<h1 class="centre-align">Sign In</h1>
-	</div>
+	<jsp:include page="fragments/page_header.jsp">
+		<jsp:param name="name" value="SIGN IN" />
+	</jsp:include>
 	<div class="row push_down">
 		<div class="col-sm-8 col-sm-offset-2">
 			<c:if test="${message != null}">
@@ -29,8 +29,9 @@
 						style="float: right; color: #888;">Register</a>
 				</div>
 				<div class="form-group">
-					<input type="checkbox" class="form-check-input" value="" name="remember">
-					<label class="form-check-label" for="remember">Remember me</label>
+					<input type="checkbox" class="form-check-input" value=""
+						name="remember"> <label class="form-check-label"
+						for="remember">Remember me</label>
 				</div>
 			</form>
 		</div>

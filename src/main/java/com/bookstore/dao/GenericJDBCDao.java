@@ -181,10 +181,9 @@ public abstract class GenericJDBCDao<T extends AbstractEntity> implements Generi
 	protected final String getUpdateQuery() {
 		String query = "UPDATE " + this.getTableName() + " SET ";
 		StringBuilder colSb = new StringBuilder();
-		String[] columns = this.getTableColumns().split(",");
-		int length = columns.length;
-		Arrays.asList(this.getTableColumns().split(",")).forEach(col -> colSb.append(" ").append(col + "= ? ,"));
-		colSb.append(" " + columns[length - 1] + "= ? WHERE " + PRIMARY_KEY_COLUMN + " = ?");
+		Arrays.asList(this.getTableColumns().split(",")).forEach(col -> colSb.append(col + "=? ,"));
+		colSb.setLength(colSb.length() - 1);
+		colSb.append(" WHERE " + PRIMARY_KEY_COLUMN + " = ?");
 		return query + colSb.toString();
 	}
 
@@ -244,6 +243,7 @@ public abstract class GenericJDBCDao<T extends AbstractEntity> implements Generi
 
 	private T updateEntity(T entity) {
 		String query = this.getUpdateQuery();
+		logger.debug(query);
 		Object[] values = this.getEntityParameterValues(entity);
 		try (Connection connection = DBManager.getDBConnection();
 				PreparedStatement statement = DAOUtil.prepareStatement(connection, query, false, values);) {

@@ -47,6 +47,7 @@ public class JdbcUserDao extends GenericJDBCDao<User> implements UserDao {
 	@Override
 	protected User getEntityFromResultSet(ResultSet resultSet) throws SQLException {
 		User user = new User();
+		user.setId(resultSet.getLong("id"));
 		user.setEmail(resultSet.getString("email_address"));
 		user.setPassword(resultSet.getString("password"));
 		return user;

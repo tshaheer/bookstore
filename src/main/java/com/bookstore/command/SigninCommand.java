@@ -43,7 +43,7 @@ public class SigninCommand implements Command {
 
 	private void rememberUser(User user, HttpServletResponse response) {
 		String encodedAuthDetails = Base64.getEncoder().encodeToString((user.getEmail() + ":" + user.getPassword()).getBytes());
-		CookieUtil.addCookie(response, Constants.REMEMBER_COOKIE_NAME, encodedAuthDetails, 60 * 24 * 365 * 2 * 60);
+		CookieUtil.addCookie(response, Constants.REMEMBER_COOKIE_NAME, encodedAuthDetails, 60 * 60 * 24 * 365);
 	}
 
 	private void forgetUser(HttpServletResponse response) {

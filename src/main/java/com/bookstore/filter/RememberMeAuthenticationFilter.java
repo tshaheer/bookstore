@@ -1,6 +1,7 @@
 package com.bookstore.filter;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Base64;
 
 import javax.servlet.FilterChain;
@@ -17,35 +18,57 @@ import com.bookstore.model.User;
 import com.bookstore.util.Constants;
 import com.bookstore.util.CookieUtil;
 
+/**
+ * The UserSession filter.
+ * @author Shaheer
+ */
 public class RememberMeAuthenticationFilter extends BaseFilter {
+
+	private UserDao userDao;
+
+	@Override
+	protected void initFilterBean() throws ServletException {
+		this.userDao = DAOFactory.getDAOFactory(DAOFactory.FactoryType.JDBC).getUserDao();
+	}
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
-		HttpSession session = request.getSession(false);
-		boolean loggedIn = session != null && session.getAttribute(Constants.ATTR_USER) != null;
-		if (!loggedIn) {
-			tryAutoLogin(request, response);
+		boolean loggedIn = tryLogin(request) || tryAutoLogin(request, response);
+		if (!loggedIn && isRestrictedPath(request)) {
+			response.sendRedirect("home.do?action=Signin");
+		} else {
+			chain.doFilter(request, response);
 		}
-		chain.doFilter(request, response);
 	}
 
-	private void tryAutoLogin(HttpServletRequest request, HttpServletResponse response) {
+	private boolean tryLogin(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		return session != null && session.getAttribute(Constants.ATTR_USER) != null;
+	}
+
+	private boolean tryAutoLogin(HttpServletRequest request, HttpServletResponse response) {
 		String encodedAuthDetails = CookieUtil.getCookieValue(request.getCookies(), Constants.REMEMBER_COOKIE_NAME);
+		boolean autoLogin = false;
 		if (encodedAuthDetails != null) {
 			String decodedString = new String(Base64.getDecoder().decode(encodedAuthDetails));
 			String[] authDetails = decodedString.split(":");
-			UserDao userDao = DAOFactory.getDAOFactory(DAOFactory.FactoryType.JDBC).getUserDao();
 			User user = userDao.findByEmailAndPassword(authDetails[0], authDetails[1]);
 			if (user != null) {
 				request.getSession().setAttribute(Constants.ATTR_USER, user);
-				CookieUtil.addCookie(response, Constants.REMEMBER_COOKIE_NAME, encodedAuthDetails, 3600 * 24 * 365);
+				CookieUtil.addCookie(response, Constants.REMEMBER_COOKIE_NAME, encodedAuthDetails, 60 * 60 * 24 * 365);
+				autoLogin = true;
 			} else {
 				CookieUtil.removeCookie(response, Constants.REMEMBER_COOKIE_NAME);
 			}
 		}
+		return autoLogin;
+	}
+
+	private boolean isRestrictedPath(HttpServletRequest request) {
+		return Arrays.asList("Account", "Address", "CreditCard").contains(request.getParameter(Constants.ACTION_PARAM));
 	}
 
 }

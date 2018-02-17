@@ -15,7 +15,7 @@ public class CartCommand implements Command {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) {
-		if (request.getMethod().equals("POST")) {
+		if ("POST".equals(request.getMethod())) {
 			String op = request.getParameter("op");
 			if ("remove".equals(op)) {
 				removeItem(request);
