@@ -34,7 +34,7 @@ create table ADDRESS_BOOK (
 drop table if exists CREDIT_CARD;
 create table CREDIT_CARD (
 	   ID BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-       CARD_TYPE char(5) not null,
+       CARD_TYPE char(20) not null,
        CARD_NUMBER char(25) not null,
        CARD_OWNERNAME char(50) not null,
        CARD_EXPMONTH int not null,

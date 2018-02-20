@@ -1,6 +1,6 @@
 package com.bookstore.model;
 
-import com.bookstore.util.BookStoreUtil;
+import com.bookstore.util.CreditCardUtil;
 
 /**
  * @author Shaheer
@@ -71,7 +71,7 @@ public class CreditCard extends AbstractEntity {
 
 	public String getObscuredNumber() {
 		if ((cardNumber != null) && (cardNumber.length() > 6)) {
-			String digitsOnly = BookStoreUtil.getDigitsOnly(cardNumber);
+			String digitsOnly = CreditCardUtil.getDigitsOnly(cardNumber);
 			String allStars = "****************************************";
 			return digitsOnly.substring(0, 2) + allStars.substring(0, digitsOnly.length() - 6)
 					+ digitsOnly.substring(digitsOnly.length() - 4, digitsOnly.length());

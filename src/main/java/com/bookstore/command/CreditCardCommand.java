@@ -11,7 +11,7 @@ import com.bookstore.dao.CreditCardDao;
 import com.bookstore.dao.factory.DAOFactory;
 import com.bookstore.model.CreditCard;
 import com.bookstore.model.User;
-import com.bookstore.util.BookStoreUtil;
+import com.bookstore.util.CreditCardUtil;
 import com.bookstore.util.Constants;
 
 public class CreditCardCommand implements Command {
@@ -33,18 +33,18 @@ public class CreditCardCommand implements Command {
 	}
 
 	private String handleGETRequest(HttpServletRequest request) {
-		CreditCardDao addressDao = DAOFactory.getDAOFactory(DAOFactory.FactoryType.JDBC).getCreditCardDao();
+		CreditCardDao creditDao = DAOFactory.getDAOFactory(DAOFactory.FactoryType.JDBC).getCreditCardDao();
 		String op = request.getParameter("op");
 		if ("new".equals(op)) {
 			request.setAttribute(ATTR_MODEL, new CreditCard());
 		}
 		if ("edit".equals(op)) {
 			Long id = Long.parseLong(request.getParameter("id"));
-			request.setAttribute(ATTR_MODEL, addressDao.findById(id).map(a -> a).orElse(null));
+			request.setAttribute(ATTR_MODEL, creditDao.findById(id).map(a -> a).orElse(null));
 		}
 		if ("delete".equals(op)) {
 			Long id = Long.parseLong(request.getParameter("id"));
-			addressDao.deleteById(id);
+			creditDao.deleteById(id);
 			return "redirect:home.do?action=Account";
 		}
 		return VIEW;
@@ -110,7 +110,7 @@ public class CreditCardCommand implements Command {
 			addFieldError("cNumber", "Card Number is required.");
 			valid = false;
 		} else {
-			if (!validateCreditCardNumber(creditCard.getCardNumber())) {
+			if (!CreditCardUtil.validateCreditCardNumber(creditCard.getCardNumber())) {
 				addFieldError("cNumber", "Invalid Card Number");
 				valid = false;
 			}
@@ -134,71 +134,9 @@ public class CreditCardCommand implements Command {
 	private boolean validateCCDate(int expMonth, int expYear) {
 		YearMonth cardYearMonth = YearMonth.of(expYear, expMonth);
 		LocalDate cardDate = cardYearMonth.atDay(1);
-		System.out.println("Cedit card date  ===== " + cardDate);
-		System.out.println("Current date  ===== " + LocalDate.now());
-		System.err.println("Vlidation is >>>" + cardDate.isAfter(LocalDate.now()));
 		return cardDate.isAfter(LocalDate.now());
 	}
 
-	private boolean validateCreditCardNumber(String cardNumber) {
-		String digitsOnly = BookStoreUtil.getDigitsOnly(cardNumber);
-		int sum = 0;
-		int digit = 0;
-		int addend = 0;
-		boolean timesTwo = false;
-		if (!prefixValid(digitsOnly)) {
-			return false;
-		}
-		for (int i = digitsOnly.length() - 1; i >= 0; i--) {
-			digit = Integer.parseInt(digitsOnly.substring(i, i + 1));
-			if (timesTwo) {
-				addend = digit * 2;
-				if (addend > 9) {
-					addend -= 9;
-				}
-			} else {
-				addend = digit;
-			}
-			sum += addend;
-			timesTwo = !timesTwo;
-		}
-		int modulus = sum % 10;
-		return modulus == 0;
-	}
-
-	private boolean prefixValid(String digitsOnly) {
-		boolean foundcard = false;
-		int digitLength = digitsOnly.length();
-		// MC
-		if (digitsOnly.startsWith("51") || digitsOnly.startsWith("52") || digitsOnly.startsWith("53")
-				|| digitsOnly.startsWith("54")) {
-			if (digitLength != 16) {
-				return false;
-			}
-			foundcard = true;
-		}
-		// VISA
-		if (digitsOnly.startsWith("4")) {
-			if ((digitLength != 16) && (digitLength != 13))
-				return false;
-			foundcard = true;
-		}
-		// AMEX
-		if (digitsOnly.startsWith("34") || digitsOnly.startsWith("37")) {
-			if (digitLength != 15) {
-				return false;
-			}
-			foundcard = true;
-		}
-		// DISC
-		if (digitsOnly.startsWith("6011")) {
-			if (digitLength != 16) {
-				return false;
-			}
-			foundcard = true;
-		}
-		return foundcard;
-	}
 
 	private void addFieldError(String fieldname, String error) {
 		validationErrors.put(fieldname, error);

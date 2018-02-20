@@ -85,14 +85,10 @@
 							<td colspan="2" class="hidden-xs"></td>
 							<td class="hidden-xs text-center"><strong>Total
 									${cart.totalPriceCurrencyFormat}</strong></td>
-							<td>
-								<form method="post"
-									action="<c:url value='home.do?action=Checkout'/>">
-									<button class="btn btn-success btn-block">
-										Checkout <i class="fa fa-angle-right"></i>
-									</button>
-								</form>
-							</td>
+							<td><a href="<c:url value='home.do?action=Checkout'/>"
+								class="btn btn-success btn-block"> Checkout <i
+									class="fa fa-angle-right"></i>
+							</a></td>
 						</tr>
 					</tfoot>
 				</table>

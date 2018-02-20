@@ -26,9 +26,18 @@
 		<servlet-class>com.bookstore.controller.FrontControllerServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	<servlet>
+		<servlet-name>AjaxControllerServlet</servlet-name>
+		<servlet-class>com.bookstore.controller.AjaxControlerServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>FrontControllerServlet</servlet-name>
 		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AjaxControllerServlet</servlet-name>
+		<url-pattern>*.json</url-pattern>
 	</servlet-mapping>
 
 	<resource-ref>

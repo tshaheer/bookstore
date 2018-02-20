@@ -22,6 +22,8 @@ public final class Constants {
 	public static final String ATTR_SHOPPING_CART = "cart";
 	public static final String ATTR_USER = "customer";
 	public static final String REMEMBER_COOKIE_NAME = "remember-me";
+	public static final String ATTR_ADDRESS = "address";
+	public static final String ATTR_CARD = "card";
 	
 	private Constants() {
 	}
