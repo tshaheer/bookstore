@@ -16,12 +16,13 @@
 
 </head>
 <body>
-	<jsp:include page="/WEB-INF/jsp/fragments/nav_bar.jsp"></jsp:include>
+	<%-- <jsp:include page="/WEB-INF/jsp/fragments/nav_bar.jsp"></jsp:include> --%>
+	<%@ include file="/WEB-INF/jsp/fragments/nav_bar.jsp"  %>
 	<div class="container-fluid">
 		<!-- dynamic area -->
 		<jsp:include page="<%= strDynIncPage %>" flush="true" />
 	</div>
 	<!-- footer -->
-	<jsp:include page="fragments/footer.jsp"></jsp:include>
+	<%@ include file="fragments/footer.jsp"  %>
 </body>
 </html>

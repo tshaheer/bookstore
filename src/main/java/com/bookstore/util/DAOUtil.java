@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.UUID;
 
 /**
  * Utility class for DAO's. This class contains commonly used DAO logic which is
@@ -68,7 +69,7 @@ public final class DAOUtil {
 	public static java.sql.Date toSqlDate(java.time.LocalDate localDate) {
 		return (localDate != null) ? java.sql.Date.valueOf(localDate) : null;
 	}
-	
+
 	/**
 	 * Converts the given java.sql.Date to java.time.LocalDate.
 	 * 
@@ -79,6 +80,11 @@ public final class DAOUtil {
 	public static java.time.LocalDate toLocalDate(java.sql.Date date) {
 		return (date != null) ? date.toLocalDate() : null;
 	}
-	
+
+	public static long generateUUID() {
+		UUID uuidOne = UUID.randomUUID();
+		long keyValues = uuidOne.getMostSignificantBits();
+		return (keyValues < 0 ? -keyValues : keyValues); // remove negative if any
+	}
 
 }

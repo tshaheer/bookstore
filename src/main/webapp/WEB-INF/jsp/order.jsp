@@ -61,11 +61,22 @@
 				${sessionScope.address.city},&nbsp;&nbsp;${sessionScope.address.state}&nbsp;${sessionScope.address.postalCode}
 			</div>
 			<div class="col-sm-6">
-				<h4><b>And charged to the following credit card</b></h4>
-				${card.cardOwner} <br/>
-				${card.cardType} <br />
-				${card.obscuredNumber} <br />
-				${card.expMonth}/${card.expYear}
+				<h4>
+					<b>And charged to the following credit card</b>
+				</h4>
+				${card.cardOwner} <br /> ${card.cardType} <br />
+				${card.obscuredNumber} <br /> ${card.expMonth}/${card.expYear}
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="form-group" align="right">
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<form method="post" action="<c:url value='home.do?action=Order' />">
+						<button type="submit" class="btn btn-primary btn-submit-fix">BUY
+							IT</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -4,6 +4,8 @@ import com.bookstore.dao.AddressDao;
 import com.bookstore.dao.AuthorDao;
 import com.bookstore.dao.CategoryDao;
 import com.bookstore.dao.CreditCardDao;
+import com.bookstore.dao.OrderDao;
+import com.bookstore.dao.OrderItemDao;
 import com.bookstore.dao.ProductDao;
 import com.bookstore.dao.UserDao;
 
@@ -61,5 +63,9 @@ public interface DAOFactory {
     AddressDao getAddressDao();
     
     CreditCardDao getCreditCardDao();
+    
+    OrderDao getOrderDao();
+    
+    OrderItemDao getOrderItemDao();
 
 }
