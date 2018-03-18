@@ -12,6 +12,7 @@ create table ORDERS (
        ORDER_TAX float,
        ORDER_SHIPPING float,
        ORDER_TOTAL float,
+       ORDER_STATUS char(10),
        primary key(ID),
        UNIQUE(ORDER_NUMBER));
 	   

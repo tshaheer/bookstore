@@ -23,7 +23,7 @@ import org.apache.log4j.Logger;
  * @author Shaheer
  */
 public final class MailUtil {
-	
+
 	private static final Logger logger = Logger.getLogger(MailUtil.class);
 
 	// You have to change these accordingly to make email work. You will also
@@ -74,5 +74,6 @@ public final class MailUtil {
 		}
 	}
 
-	private MailUtil() {}
+	private MailUtil() {
+	}
 }

@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 import org.apache.log4j.Logger;
 
 import com.bookstore.exception.DataAccessConfigurationException;
+import com.bookstore.exception.DataAccessException;
 
 /**
  * This class can be used to get an instance of the JNDI Datasource, which
@@ -25,6 +26,8 @@ public class DBManager {
 
 	private static DataSource dataSource = null;
 	private static Connection connection = null;
+	
+	private DBManager() {}
 
 	public static Connection getDBConnection() {
 		if (dataSource == null) {
@@ -48,18 +51,33 @@ public class DBManager {
 			dataSource = (DataSource) envContext.lookup(Constants.BOOKSTORE_DATASOURCE);
 		} catch (NamingException ne) {
 			logger.error("Failed to look up data source. " + ne.getMessage());
-			throw new DataAccessConfigurationException("DataSource '" + Constants.BOOKSTORE_DATASOURCE + "' is missing in JNDI.", ne);
+			throw new DataAccessConfigurationException(
+					"DataSource '" + Constants.BOOKSTORE_DATASOURCE + "' is missing in JNDI.", ne);
 		}
 	}
 
-	// Closes the database connection.
-	public static void releaseDBConnection() {
-		if (connection != null) {
-			try {
-				connection.close();
-			} catch (SQLException sqle) {
-				logger.error(sqle.getMessage());
-			}
+	public static void beginTransaction() {
+		try {
+			connection.setAutoCommit(false);
+		} catch (SQLException sqle) {
+			throw new DataAccessException(sqle);
+		}
+	}
+	
+	public static void rollback() {
+		try {
+			connection.rollback();
+		} catch (SQLException sqle) {
+			throw new DataAccessException(sqle);
+		}
+	}
+
+	public static void commit() {
+		try {
+			connection.commit();
+			connection.setAutoCommit(true);
+		} catch (SQLException sqle) {
+			throw new DataAccessException(sqle);
 		}
 	}
 
@@ -74,26 +92,6 @@ public class DBManager {
 			}
 		} catch (SQLException sqle) {
 			logger.error(sqle.getMessage());
-		}
-	}
-
-	public void commit() {
-		if (connection != null) {
-			try {
-				connection.commit();
-			} catch (SQLException sqle) {
-				logger.error(sqle.getMessage());
-			}
-		}
-	}
-
-	public void rollback() {
-		if (connection != null) {
-			try {
-				connection.rollback();
-			} catch (SQLException sqle) {
-				logger.error(sqle.getMessage());
-			}
 		}
 	}
 

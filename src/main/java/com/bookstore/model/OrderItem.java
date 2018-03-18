@@ -1,5 +1,9 @@
 package com.bookstore.model;
 
+import java.text.NumberFormat;
+
+import com.bookstore.util.Constants;
+
 public class OrderItem extends AbstractEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -62,6 +66,16 @@ public class OrderItem extends AbstractEntity {
 
 	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+	
+	public String getPriceCurrencyFormat() {
+		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Constants.DEFAULT_LOCALE);
+		return currencyFormat.format(getUnitPrice());
+	}
+	
+	public String getTotalPriceCurrencyFormat() {
+		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Constants.DEFAULT_LOCALE);
+		return currencyFormat.format(getTotalPrice());
 	}
 	
 }

@@ -41,6 +41,7 @@
 								<c:when test="${sessionScope.customer != null}">
 									<li><a href="<c:url value='home.do?action=Account' />">My
 											Account</a></li>
+											<li><a href="<c:url value='home.do?action=OrderHistory' />">Order History</a></li>
 									<li><a href="<c:url value='home.do?action=Signin&op=logout' />">Sign
 											out</a></li>
 								</c:when>

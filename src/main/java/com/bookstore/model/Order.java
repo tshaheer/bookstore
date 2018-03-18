@@ -30,6 +30,8 @@ public class Order extends AbstractEntity {
 	private CreditCard orderCard;
 	
 	private List<OrderItem> items; 
+	
+	private OrderStatus orderStatus;
 
 	public String getEmail() {
 		return email;
@@ -111,6 +113,14 @@ public class Order extends AbstractEntity {
 		this.items = items;
 	}
 
+	public OrderStatus getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(OrderStatus orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+
 	public String getOrderSubtotalString() {
 		NumberFormat nf = NumberFormat.getCurrencyInstance();
 		return nf.format(getOrderSubtotal());
@@ -157,8 +167,12 @@ public class Order extends AbstractEntity {
 	@Override
 	public String toString() {
 		return String.format(
-				"Order [email=%s, orderNumber=%s, orderDate=%s, orderSubtotal=%d, orderTax=%d, orderShipping=%d, orderTotal=%d]",
+				"Order [email=%s, orderNumber=%d, orderDate=%s, orderSubtotal=%s, orderTax=%s, orderShipping=%s, orderTotal=%s]",
 				email, orderNumber, orderDate, orderSubtotal, orderTax, orderShipping, orderTotal);
+	}
+	
+	public enum OrderStatus {
+		PROCESSING, COMPLETED, CANCELLED, ONHOLD, SHIPPED, DELIVERED
 	}
 
 }

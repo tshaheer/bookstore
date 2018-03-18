@@ -68,7 +68,7 @@ public class RememberMeAuthenticationFilter extends BaseFilter {
 	}
 
 	private boolean isRestrictedPath(HttpServletRequest request) {
-		return Arrays.asList("Account", "Address", "CreditCard", "Checkout").contains(request.getParameter(Constants.ACTION_PARAM));
+		return Arrays.asList("Account", "Address", "CreditCard", "Checkout", "OrderHistory").contains(request.getParameter(Constants.ACTION_PARAM));
 	}
 
 }
