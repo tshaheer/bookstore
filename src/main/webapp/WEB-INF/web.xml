@@ -60,4 +60,11 @@
 		<servlet-name>FrontControllerServlet</servlet-name>
 	</filter-mapping>
 
+	<!-- Display this page to handle unexpected exceptions gracefully. Otherwise 
+		we get whatever error page the container chooses. -->
+	<error-page>
+		<exception-type>java.lang.Exception</exception-type>
+		<location>/WEB-INF/jsp/error_500.jsp</location>
+	</error-page>
+
 </web-app>
