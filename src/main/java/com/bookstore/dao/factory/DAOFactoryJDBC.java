@@ -18,7 +18,7 @@ import com.bookstore.dao.impl.JdbcProductDao;
 import com.bookstore.dao.impl.JdbcUserDao;
 
 public class DAOFactoryJDBC implements DAOFactory {
-
+	
 	@Override
 	public ProductDao getProductDao() {
 		return new JdbcProductDao();

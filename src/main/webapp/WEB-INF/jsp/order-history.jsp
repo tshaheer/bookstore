@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://bookstore/jsptags/time" prefix="javatime" %>
 <jsp:include page="fragments/page_header.jsp">
 	<jsp:param name="name" value="ORDER HISTORY" />
 </jsp:include>
@@ -20,7 +21,8 @@
 						<td>${loop.index + 1}</td>
 						<td><a
 							href="<c:url value='home.do?action=OrderHistory&orderno=${order.orderNumber}' />">${order.orderNumber}</a></td>
-						<td>${order.orderDate}</td>
+						<%-- <td>${order.orderDate}</td> --%>
+						<td><javatime:formatDate value="${order.orderDate}" style="M-" /></td>
 						<td>${order.orderTotalString}</td>
 						<td><c:choose>
 								<c:when test="${order.orderStatus eq 'PROCESSING'}">

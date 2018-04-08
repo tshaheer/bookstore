@@ -26,7 +26,7 @@ import com.bookstore.util.DBManager;
 public abstract class GenericJDBCDao<T extends AbstractEntity> implements GenericDao<T, Long> {
 
 	private static final Logger logger = Logger.getLogger(GenericJDBCDao.class);
-	
+
 	private static final String PRIMARY_KEY_COLUMN = "id";
 
 	protected abstract String getTableName();
@@ -56,12 +56,12 @@ public abstract class GenericJDBCDao<T extends AbstractEntity> implements Generi
 		logger.debug(query);
 		return find(query, id);
 	}
-	
+
 	@Override
 	public final List<T> findAll() {
 		return this.findByCondition();
 	}
-	
+
 	@Override
 	public final T save(T entity) {
 		if (entity == null) {
@@ -73,7 +73,7 @@ public abstract class GenericJDBCDao<T extends AbstractEntity> implements Generi
 			return updateEntity(entity);
 		}
 	}
-	
+
 	@Override
 	public final void delete(T entity) {
 		if (entity == null) {
@@ -81,16 +81,14 @@ public abstract class GenericJDBCDao<T extends AbstractEntity> implements Generi
 		}
 		this.deleteById(entity.getId());
 	}
-	
+
 	@Override
 	public final void deleteById(Long id) {
 		if (id == null) {
 			throw new IllegalArgumentException("The given id must not be null!.");
 		}
-		String query = getDeleteQuery();
-		Object[] values = { id };
 		try (Connection connection = DBManager.getDBConnection();
-				PreparedStatement statement = DAOUtil.prepareStatement(connection, query, false, values);) {
+				PreparedStatement statement = DAOUtil.prepareStatement(connection, this.getDeleteQuery(), false, id);) {
 			int affectedRows = statement.executeUpdate();
 			if (affectedRows == 0) {
 				throw new DataAccessException("Deleting entity failed, no rows affected.");
@@ -99,7 +97,7 @@ public abstract class GenericJDBCDao<T extends AbstractEntity> implements Generi
 			throw new DataAccessException(e);
 		}
 	}
-	
+
 	@Override
 	public final long count() {
 		String query = "SELECT COUNT(*) AS count FROM " + this.getTableName();
@@ -114,13 +112,11 @@ public abstract class GenericJDBCDao<T extends AbstractEntity> implements Generi
 		}
 		return 0;
 	}
-	
+
 	protected final List<T> findByCondition(String... condition) {
 		List<T> list = new ArrayList<>();
-		String query = this.getSelectQuery(condition);
-		logger.debug(query);
 		try (Connection connection = DBManager.getDBConnection();
-				PreparedStatement statement = connection.prepareStatement(query);
+				PreparedStatement statement = connection.prepareStatement(this.getSelectQuery(condition));
 				ResultSet resultSet = statement.executeQuery();) {
 			while (resultSet.next()) {
 				list.add(this.getEntityFromResultSet(resultSet));
@@ -133,10 +129,8 @@ public abstract class GenericJDBCDao<T extends AbstractEntity> implements Generi
 
 	protected final T findByConditionUnique(String... condition) {
 		T entity = null;
-		String query = this.getSelectQuery(condition);
-		logger.debug(query);
 		try (Connection connection = DBManager.getDBConnection();
-				PreparedStatement statement = connection.prepareStatement(query);
+				PreparedStatement statement = connection.prepareStatement(this.getSelectQuery(condition));
 				ResultSet resultSet = statement.executeQuery();) {
 			while (resultSet.next()) {
 				entity = this.getEntityFromResultSet(resultSet);
@@ -145,50 +139,6 @@ public abstract class GenericJDBCDao<T extends AbstractEntity> implements Generi
 			throw new DataAccessException(e);
 		}
 		return entity;
-	}
-
-
-	protected final String getSelectQuery(String... condition) {
-		String query = "SELECT " + PRIMARY_KEY_COLUMN + "," + this.getTableColumns() + " FROM "
-				+ this.getTableName();
-		String whereClause = buildWhereClause(Arrays.asList(condition));
-		return query + whereClause;
-	}
-
-	private String buildWhereClause(Collection<String> conditions) {
-		if (conditions == null || conditions.isEmpty()) {
-			return "";
-		}
-		StringBuilder clauseSb = new StringBuilder();
-		conditions.forEach(c -> clauseSb.append(c).append(" AND "));
-		if (clauseSb.length() > 0) {
-			clauseSb.insert(0, " WHERE ");
-			clauseSb.setLength(clauseSb.length() - 4);
-		}
-		return clauseSb.toString();
-	}
-
-	protected final String getInsertQuery() {
-		String query = "INSERT INTO " + this.getTableName() + "(" + PRIMARY_KEY_COLUMN + ","
-				+ this.getTableColumns() + ") values (null,";
-		StringBuilder colSb = new StringBuilder();
-		Arrays.asList(this.getTableColumns().split(",")).forEach(col -> colSb.append(" ?,"));
-		colSb.setLength(colSb.length() - 1);
-		colSb.append(")");
-		return query + colSb.toString();
-	}
-
-	protected final String getUpdateQuery() {
-		String query = "UPDATE " + this.getTableName() + " SET ";
-		StringBuilder colSb = new StringBuilder();
-		Arrays.asList(this.getTableColumns().split(",")).forEach(col -> colSb.append(col + "=? ,"));
-		colSb.setLength(colSb.length() - 1);
-		colSb.append(" WHERE " + PRIMARY_KEY_COLUMN + " = ?");
-		return query + colSb.toString();
-	}
-
-	protected final String getDeleteQuery() {
-		return "DELETE FROM " + this.getTableName() + " WHERE " + PRIMARY_KEY_COLUMN + "= ?";
 	}
 
 	/**
@@ -219,11 +169,9 @@ public abstract class GenericJDBCDao<T extends AbstractEntity> implements Generi
 	}
 
 	private T createEntity(T entity) {
-		String query = this.getInsertQuery();
-		logger.debug(query);
-		Object[] values = this.getEntityParameterValues(entity);
 		try (Connection connection = DBManager.getDBConnection();
-				PreparedStatement statement = DAOUtil.prepareStatement(connection, query, true, values);) {
+				PreparedStatement statement = DAOUtil.prepareStatement(connection, this.getInsertQuery(), true,
+						this.getEntityParameterValues(entity));) {
 			int affectedRows = statement.executeUpdate();
 			if (affectedRows == 0) {
 				throw new DataAccessException("Creating entity failed, no rows affected.");
@@ -242,11 +190,9 @@ public abstract class GenericJDBCDao<T extends AbstractEntity> implements Generi
 	}
 
 	private T updateEntity(T entity) {
-		String query = this.getUpdateQuery();
-		logger.debug(query);
-		Object[] values = this.getEntityParameterValues(entity);
 		try (Connection connection = DBManager.getDBConnection();
-				PreparedStatement statement = DAOUtil.prepareStatement(connection, query, false, values);) {
+				PreparedStatement statement = DAOUtil.prepareStatement(connection, this.getUpdateQuery(), false,
+						this.getEntityParameterValues(entity));) {
 			int affectedRows = statement.executeUpdate();
 			if (affectedRows == 0) {
 				throw new DataAccessException("Updating entity failed, no rows affected.");
@@ -257,4 +203,45 @@ public abstract class GenericJDBCDao<T extends AbstractEntity> implements Generi
 		return entity;
 	}
 
+	protected final String getSelectQuery(String... condition) {
+		String query = "SELECT " + PRIMARY_KEY_COLUMN + "," + this.getTableColumns() + " FROM " + this.getTableName();
+		String whereClause = buildWhereClause(Arrays.asList(condition));
+		return query + whereClause;
+	}
+
+	protected final String getInsertQuery() {
+		String query = "INSERT INTO " + this.getTableName() + "(" + PRIMARY_KEY_COLUMN + "," + this.getTableColumns()
+				+ ") values (null,";
+		StringBuilder colSb = new StringBuilder();
+		Arrays.asList(this.getTableColumns().split(",")).forEach(col -> colSb.append(" ?,"));
+		colSb.setLength(colSb.length() - 1);
+		colSb.append(")");
+		return query + colSb.toString();
+	}
+
+	protected final String getUpdateQuery() {
+		String query = "UPDATE " + this.getTableName() + " SET ";
+		StringBuilder colSb = new StringBuilder();
+		Arrays.asList(this.getTableColumns().split(",")).forEach(col -> colSb.append(col + "=? ,"));
+		colSb.setLength(colSb.length() - 1);
+		colSb.append(" WHERE " + PRIMARY_KEY_COLUMN + " = ?");
+		return query + colSb.toString();
+	}
+
+	protected final String getDeleteQuery() {
+		return "DELETE FROM " + this.getTableName() + " WHERE " + PRIMARY_KEY_COLUMN + "= ?";
+	}
+
+	private String buildWhereClause(Collection<String> conditions) {
+		if (conditions == null || conditions.isEmpty()) {
+			return "";
+		}
+		StringBuilder clauseSb = new StringBuilder();
+		conditions.forEach(c -> clauseSb.append(c).append(" AND "));
+		if (clauseSb.length() > 0) {
+			clauseSb.insert(0, " WHERE ");
+			clauseSb.setLength(clauseSb.length() - 4);
+		}
+		return clauseSb.toString();
+	}
 }

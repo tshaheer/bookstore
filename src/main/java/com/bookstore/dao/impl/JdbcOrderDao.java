@@ -35,36 +35,26 @@ public class JdbcOrderDao extends GenericJDBCDao<Order> implements OrderDao {
 
 	@Override
 	public Order saveOrderAndOrderItems(Order order, Cart cart) {
-		try (Connection connection = DBManager.getDBConnection()) {
-			DBManager.beginTransaction();
-			return insertOrderWithItems(connection, order, cart);
-		} catch (SQLException e) {
-			throw new DataAccessException(e);
-		}
-	}
-	
-	private Order insertOrderWithItems(Connection connection, Order order, Cart cart) {
-		String insertOrderSQL = this.getInsertQuery();
-		logger.debug(insertOrderSQL);
-		Object[] values = this.getEntityParameterValues(order);
-		PreparedStatement statementOrder = null;
-		PreparedStatement statementItem = null;
-		ResultSet generatedKeys = null;
+		// transaction block start
+		Connection connection = DBManager.getDBConnection();
 		try {
-			// transaction block start
-			statementOrder = DAOUtil.prepareStatement(connection, insertOrderSQL, true, values);
-			// SQL insert statement
-			int affectedRows = statementOrder.executeUpdate();
-			if (affectedRows == 0) {
-				throw new DataAccessException("Creating entity failed, no rows affected.");
+			connection.setAutoCommit(false);
+			// save order
+			try (PreparedStatement statementOrder = DAOUtil.prepareStatement(connection, this.getInsertQuery(), true,
+					this.getEntityParameterValues(order));) {
+				int affectedRows = statementOrder.executeUpdate();
+				if (affectedRows == 0) {
+					throw new DataAccessException("Creating entity failed, no rows affected.");
+				}
+				try (ResultSet generatedKeys = statementOrder.getGeneratedKeys()) {
+					if (generatedKeys.next()) {
+						order.setId(generatedKeys.getLong(1));
+					} else {
+						throw new DataAccessException("Creating entity failed, no generated key obtained.");
+					}
+				}
 			}
-			generatedKeys = statementOrder.getGeneratedKeys();
-			if (generatedKeys.next()) {
-				order.setId(generatedKeys.getLong(1));
-			} else {
-				throw new DataAccessException("Creating entity failed, no generated key obtained.");
-			}
-			// order Item
+			// save orderItems
 			final String insertItemSQL = "INSERT INTO order_item (order_id, product_isbn, product_title, quantity, unit_price, total_price) VALUES (?, ?, ?, ?, ?, ?)";
 			Iterator<CartItem> itemIterator = cart.getItems();
 			List<OrderItem> orderItems = new ArrayList<>();
@@ -78,29 +68,22 @@ public class JdbcOrderDao extends GenericJDBCDao<Order> implements OrderDao {
 				orderItem.setUnitPrice(item.getProduct().getPrice());
 				orderItem.setTotalPrice(item.getTotalPrice());
 				orderItems.add(orderItem);
-				statementItem = DAOUtil.prepareStatement(connection, insertItemSQL, true,
-						getOrderItemParameterValues(orderItem));
-				// SQL insert statement
-				if (statementItem.executeUpdate() == 0) {
-					throw new DataAccessException("Creating address book failed, no rows affected.");
+				try (PreparedStatement statement = DAOUtil.prepareStatement(connection, insertItemSQL, true,
+						orderItem.getOrder().getId(), orderItem.getProductIsbn(), orderItem.getProductTitle(),
+						orderItem.getQuantity(), orderItem.getUnitPrice(), orderItem.getTotalPrice())) {
+					if (statement.executeUpdate() == 0) {
+						throw new DataAccessException("Creating order item failed, no rows affected.");
+					}
 				}
 			}
 			order.setItems(orderItems);
 			// transaction block end
-			DBManager.commit();
-		} catch (SQLException e) {
-			DBManager.rollback();
-			throw new DataAccessException(e);
-		} finally {
-			DBManager.closeDBResouces(statementOrder, generatedKeys);
-			DBManager.closeDBResouces(statementItem, null);
+			DBManager.commitAndClose(connection);
+		} catch (SQLException sqle) {
+			DBManager.rollbackAndClose(connection);
+			throw new DataAccessException(sqle.getMessage());
 		}
 		return order;
-	}
-
-	private Object[] getOrderItemParameterValues(OrderItem entity) {
-		return new Object[] { entity.getOrder().getId(), entity.getProductIsbn(), entity.getProductTitle(),
-				entity.getQuantity(), entity.getUnitPrice(), entity.getTotalPrice() };
 	}
 
 	@Override
@@ -146,7 +129,8 @@ public class JdbcOrderDao extends GenericJDBCDao<Order> implements OrderDao {
 	protected Object[] getEntityParameterValues(Order entity) {
 		return new Object[] { entity.getEmail(), entity.getOrderAddress().getId(), entity.getOrderCard().getId(),
 				entity.getOrderNumber(), DAOUtil.toSqlDate(entity.getOrderDate()), entity.getOrderSubtotal(),
-				entity.getOrderTax(), entity.getOrderShipping(), entity.getOrderTotal(), entity.getOrderStatus().name() };
+				entity.getOrderTax(), entity.getOrderShipping(), entity.getOrderTotal(),
+				entity.getOrderStatus().name() };
 	}
 
 	@Override
