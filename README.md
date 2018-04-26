@@ -26,7 +26,6 @@ In order to test the app, do following:
 * Clone the repository from github.com to your workspace folder. <br /> 
 `$ git clone https://github.com/tshaheer/bookstore.git`
 * Application-specific JNDI Datasource is configured in context.xml (src/main/resources/META-INF/context.xml) file with username/password as root/sa; in case, it is something else, change the username/password in context.xml file.
- <br />
 * Execute the script, startup.bat in classpath (src/main/resources/db) to start the server; the server starts up by populating the database using bs_init.sql.
 * Note that executing startup.bat would recreate database and insert the seed data. 
 
